@@ -1,3 +1,10 @@
 #lang scheme
 ;Implementación del TDA simbolo
-;Representación:
+;Representación: String
+
+;Constructores
+(define (simbolo value)
+                         (if (string? value)
+                             value
+                             null))
+
