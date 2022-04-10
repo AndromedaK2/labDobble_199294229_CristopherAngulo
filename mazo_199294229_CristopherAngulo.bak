@@ -1,6 +1,0 @@
-#lang scheme
-;Implementación del TDA mazo
-;Representación:  lista de Cartas
-
-;Constructor
-(define cardsSet (lambda (Elements numE maxC rndFn)
