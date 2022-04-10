@@ -1,5 +1,6 @@
 #lang scheme
 (require "simbolo_199294229_CristopherAngulo.rkt")
+(provide createCard isValidCard)
 ;Implementación del TDA carta
 ;Representación: Lista de Simbolos
 
@@ -17,6 +18,6 @@
 ;Recorrido True o False
 (define isValidCard(lambda (list lenght)
                      (if (null? list)
-                         #true
-                         #false)))
+                         #false
+                         #true)))
 
