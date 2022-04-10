@@ -3,8 +3,8 @@
 ;Representación: String
 
 ;Constructores
-(define (simbolo value)
-                         (if (string? value)
+(define (element value)
+                         (if (or (string? value) (number? value))
                              value
                              null))
 
