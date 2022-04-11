@@ -9,8 +9,8 @@
 ;Descripción: 
 (define cardsSet (lambda (Elements numE maxC rndFn)
      (if (and (>= numE 1)(>= maxC 1) (isValidOrder (- numE 1)) (not(null? Elements)))
-          null
-          null
+          #true
+          #false
      ))
 )
 
@@ -37,4 +37,5 @@
 
 
 ; ejemplo de uso (isPrimeWrapper 4)
-
+(define my-list '(1 2 3 4 ))
+(cardsSet my-list 4 13 2)
