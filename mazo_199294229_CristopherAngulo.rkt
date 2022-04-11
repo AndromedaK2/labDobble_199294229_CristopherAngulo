@@ -14,6 +14,16 @@
      ))
 )
 
+;Pertenencia
+;Dominio: cardsSet
+;Recorrido: #true | #false
+;Descripción
+(define dobble (lambda (cardsSet)
+     (if (null? cardsSet)
+          #true
+          #false
+     )
+))
 
 ; numE - 1 -> orden del plano proyectivo
 ; maxC
