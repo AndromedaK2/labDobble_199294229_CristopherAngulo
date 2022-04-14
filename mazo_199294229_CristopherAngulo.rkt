@@ -32,6 +32,13 @@
 
 ;Modificarores
 
+;Dominio: Mazo de Cartas X Carta
+;Recorrido: Mazo de Cartas
+(define addCardToDeck (lambda (cardSet newCard )
+                        (if (null? cardSet)
+                            (append (list newCard))                      
+                            (append  cardSet (list newCard)))))
+
 
 ;Otros
 ; numE - 1 -> orden del plano proyectivo
@@ -63,6 +70,9 @@
 
 (define elements (list "a" "b" "c" 4 5 6 7 8 9 10 11 12 13))
 
+;Dominio: Simbolos X Cantidad de Simbolos por carta
+;Recorrido: Carta
+;Tipo de Recursión: Recursión Natural
 (define createFirstCard (lambda (elements countElementPerCard)
                         (if (null? elements)
                             null
@@ -72,12 +82,12 @@
 
 (define firstCard (createFirstCard elements 4))
 
-(define addCardToDeck (lambda (cardSet newCard )
-                        (if (null? cardSet)
-                            (append (list newCard))                      
-                            (append  cardSet (list newCard)))))
 
 
+
+;Dominio: Mazo de Cartas X posición
+;Recorrido: Simbolo
+;Descripción: Obtener el Simbolo de la posición entragada en el mazo de cartas
 (define getSymbolByPosition (lambda (deck position)
                     (list-ref deck position)))
                               
@@ -102,7 +112,6 @@
                                  countElementPerCard countTotalCards (+ j 1)))))
 
 ;(addCardToDeck (addCardToDeck null firstCard) firstCard)
-;(cons (car elements) ( cons (car elements)))
  (createNextNCards elements (list firstCard) 3 13 0) 
 
 
