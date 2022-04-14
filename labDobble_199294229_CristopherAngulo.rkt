@@ -14,6 +14,7 @@
 )
 
 (define elementsSet (list "A" "B" "C" "D" "E" "F" "Z" ))
-(cardsSet elementsSet 2 5 3)
+(define symbols (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
+(cardsSet symbols 4 13 3)
 
 
