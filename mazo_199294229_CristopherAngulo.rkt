@@ -117,6 +117,38 @@
 
 
 
+(define calculateValueToDrawACard (lambda (n j i k)
+                           (+(+ n 2) (* n (- k 1)) (/(+(*(- i 1)(- k 1))(- j 1))n))))
+                                   
+                              
+(define secondAuxiliarCreateLastNCards (lambda (elements deck card countElementPerCard countTotalCards j i k)
+                                        (if (= countElementPerCard k)
+                                            card
+                                            (secondAuxiliarCreateLastNCards deck null countElementPerCard countTotalCards j i  (+ k 1)))))
+                                            
+
+;n+2+n*(k-1)+(((i-1)*(k-1)+j-1) % n)
+
+(define firstAuxiliarCreateLastNCards (lambda ( elements deck countElementPerCard countTotalCards j i )
+                                        (if (= countElementPerCard j)
+                                            deck
+                                            (firstAuxiliarCreateLastNCards elements null countElementPerCard countTotalCards (+ j 1) i))))
+  
+
+(define createLastNCards (lambda (elements deck countElementPerCard countTotalCards i)
+                           (if (= countElementPerCard i)
+                               deck
+                               (createLastNCards elements null
+                                                 countElementPerCard countTotalCards (+ i 1)))))
+
+
+
+(calculateValueToDrawACard 3 1 1 2)
+
+
+
+
+
 
 
 
