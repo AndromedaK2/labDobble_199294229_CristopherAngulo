@@ -68,7 +68,7 @@
 
 
 
-(define elements (list "a" "b" "c" 4 5 6 7 8 9 10 11 12 13))
+(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 
 ;Dominio: Simbolos X Cantidad de Simbolos por carta
 ;Recorrido: Carta
@@ -118,7 +118,7 @@
 
 
 (define calculateValueToDrawACard (lambda (n j i k)
-                           (+(+ n 2) (* n (- k 1)) (/(+(*(- i 1)(- k 1))(- j 1))n))))
+                           (- (+(+ n 2) (* n (- k 1)) (modulo(+(*(- i 1)(- k 1))(- j 1))n)) 1)))
                                    
                               
 (define secondAuxiliarCreateLastNCards (lambda (elements card n countTotalCards j i k)
@@ -131,9 +131,9 @@
 (define firstAuxiliarCreateLastNCards (lambda ( elements deck n countTotalCards j i )
                                         (if (> j n)
                                             deck
-                                            (firstAuxiliarCreateLastNCards elements
+                                            (firstAuxiliarCreateLastNCards elements (addCardToDeck deck
                                               (secondAuxiliarCreateLastNCards elements (list (getSymbolByPosition elements i))
-                                                n countTotalCards j i 1)                                                                                                           
+                                                n countTotalCards j i 1))                                                                                                           
                                                 n countTotalCards (+ j 1) i))))
   
 
