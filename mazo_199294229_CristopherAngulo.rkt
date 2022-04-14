@@ -61,7 +61,7 @@
 
 
 
-(define elements (list 1 2 3 4 5 6 7 8 9 10 11 12 13))
+(define elements (list "a" "b" "c" 4 5 6 7 8 9 10 11 12 13))
 
 (define createFirstCard (lambda (elements countElementPerCard)
                         (if (null? elements)
@@ -70,39 +70,43 @@
                             (cons (car elements) null)
                             (cons (car elements) (createFirstCard (cdr elements) (- countElementPerCard 1)))))))
 
-;(define firstCard (createFirstCard elements 4))
+(define firstCard (createFirstCard elements 4))
 
 (define addCardToDeck (lambda (cardSet newCard )
                         (if (null? cardSet)
                             (append (list newCard))                      
-                            (append (list newCard) cardSet))))
+                            (append  cardSet (list newCard)))))
 
 
 (define getSymbolByPosition (lambda (deck position)
                     (list-ref deck position)))
                               
 
+;Dominio: Mazo de Cartas X Carta X Cantidad de Elementos por Carta X Cantidad total de Cartas X Auxiliar Entero X Auxiliar Entero
+;Recorrido: Carta
+;Tipo de Recursión: Recursión de Cola
 (define auxiliarNextNCards (lambda (deck card countElementPerCard countTotalCards j k )
                              (if (= countElementPerCard k)
                                  card
-                                 (auxiliarNextNCards deck (cons (car card )  (cons getSymbolByPosition deck (+(* countElementPerCard j)(+ k 1))))                                                     
+                                 (auxiliarNextNCards deck (append card (list (getSymbolByPosition deck (+(* countElementPerCard j)(+ k 1)))))                                                     
                                                                 countElementPerCard countTotalCards j (+ k 1) ))))
                                  
 ;Dominio: Lista de Simbolos x Cantidad de Simbolos por carta x cantidad total de cartas a generar 
-;Recorrido: Lista de la N Cartas
-;Tipo de recursión: Recursión Natural
-(define createNextNCards (lambda (deck countElementPerCard countTotalCards j)
-                           (if (null? deck)
-                               null
+;Recorrido: Mazo de las N  Cartas
+;Tipo de recursión: Recursión de Cola
+(define createNextNCards (lambda (elements deck countElementPerCard countTotalCards j)
                            (if (= countElementPerCard j )
                                deck
-                               (createNextNCards
-                                (auxiliarNextNCards deck (car deck) countElementPerCard countTotalCards (+ j 1) 0 )
-                                 countElementPerCard countTotalCards (+ j 1))))))
+                               (createNextNCards elements
+                                (addCardToDeck deck (auxiliarNextNCards elements (list(car elements)) countElementPerCard countTotalCards (+ j 1) 0 ))
+                                 countElementPerCard countTotalCards (+ j 1)))))
 
 ;(addCardToDeck (addCardToDeck null firstCard) firstCard)
 ;(cons (car elements) ( cons (car elements)))
-(createNextNCards elements 3 13 0) 
+ (createNextNCards elements (list firstCard) 3 13 0) 
+
+
+
 
 
 
