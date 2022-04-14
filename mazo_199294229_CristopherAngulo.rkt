@@ -80,7 +80,7 @@
                             (cons (car elements) null)
                             (cons (car elements) (createFirstCard (cdr elements) (- countElementPerCard 1)))))))
 
-(define firstCard (createFirstCard elements 4))
+;(define firstCard (createFirstCard elements 4))
 
 
 
@@ -112,7 +112,7 @@
                                  countElementPerCard countTotalCards (+ j 1)))))
 
 ;(addCardToDeck (addCardToDeck null firstCard) firstCard)
- (createNextNCards elements (list firstCard) 3 13 0) 
+;(createNextNCards elements (list firstCard) 3 13 0) 
 
 
 
@@ -121,32 +121,32 @@
                            (+(+ n 2) (* n (- k 1)) (/(+(*(- i 1)(- k 1))(- j 1))n))))
                                    
                               
-(define secondAuxiliarCreateLastNCards (lambda (elements deck card countElementPerCard countTotalCards j i k)
-                                        (if (= countElementPerCard k)
-                                            card
-                                            (secondAuxiliarCreateLastNCards deck null countElementPerCard countTotalCards j i  (+ k 1)))))
+(define secondAuxiliarCreateLastNCards (lambda (elements card n countTotalCards j i k)
+                                         (if (> k n)
+                                             card
+                                             (secondAuxiliarCreateLastNCards elements
+                                              (append card (list (getSymbolByPosition elements (calculateValueToDrawACard n j i k ))))
+                                               n countTotalCards j i (+ k 1)))))
                                             
-
-;n+2+n*(k-1)+(((i-1)*(k-1)+j-1) % n)
-
-(define firstAuxiliarCreateLastNCards (lambda ( elements deck countElementPerCard countTotalCards j i )
-                                        (if (= countElementPerCard j)
+(define firstAuxiliarCreateLastNCards (lambda ( elements deck n countTotalCards j i )
+                                        (if (> j n)
                                             deck
-                                            (firstAuxiliarCreateLastNCards elements null countElementPerCard countTotalCards (+ j 1) i))))
+                                            (firstAuxiliarCreateLastNCards elements
+                                              (secondAuxiliarCreateLastNCards elements (list (getSymbolByPosition elements i))
+                                                n countTotalCards j i 1)                                                                                                           
+                                                n countTotalCards (+ j 1) i))))
   
 
-(define createLastNCards (lambda (elements deck countElementPerCard countTotalCards i)
-                           (if (= countElementPerCard i)
+(define createLastNCards (lambda (elements deck n countTotalCards i)
+                           (if (> i n)
                                deck
-                               (createLastNCards elements null
-                                                 countElementPerCard countTotalCards (+ i 1)))))
+                               (createLastNCards elements (firstAuxiliarCreateLastNCards elements deck n countTotalCards 1 i)
+                                                 n countTotalCards (+ i 1)))))
 
 
 
-(calculateValueToDrawACard 3 1 1 2)
 
-
-
+(createLastNCards elements null 3 13 1)
 
 
 
