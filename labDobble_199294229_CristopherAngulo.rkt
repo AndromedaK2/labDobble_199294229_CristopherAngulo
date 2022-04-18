@@ -13,8 +13,11 @@
                  )
 )
 
-(define elementsSet (list "A" "B" "C" "D" "E" "F" "Z" ))
+;(define elementsSet (list "A" "B" "C" "D" "E" "F" "Z" ))
 (define symbols (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
-(cardsSet symbols 3 7 3)
+(define elementoss (list (element "A") (element "B") (element "C")))
+
+(cardsSet elementoss 2 3 3)
+;(cardsSet symbols 3 7 3)
 
 

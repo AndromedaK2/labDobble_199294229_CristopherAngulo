@@ -1,4 +1,5 @@
 #lang scheme
+(require "simbolo_199294229_CristopherAngulo.rkt")
 (provide cardsSet)
 ;Implementación del TDA mazo
 ;Representación:  Lista de Cartas
@@ -20,7 +21,7 @@
 ;Dominio: cardsSet
 ;Recorrido: #true | #false
 ;Descripción
-(define dobble (lambda (cardsSet)
+(define dobble? (lambda (cardsSet)
     (if (null? cardsSet)
         #true
         #false
@@ -126,6 +127,14 @@
                                cardsSet
                                (createLastNCards elements (firstAuxiliarCreateLastNCards elements cardsSet n countTotalCards 1 i)
                                                  n countTotalCards (+ i 1)))))  
+
+
+
+
+
+(define elementoss (list (element "A") (element "B") (element "C")))
+
+(cardsSet elementoss 2 3 3)
 
 
 

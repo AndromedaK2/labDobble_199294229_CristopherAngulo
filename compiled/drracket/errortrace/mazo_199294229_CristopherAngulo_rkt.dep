@@ -1,1 +1,1 @@
-("8.4" ta6nt ("4a7477d43b2cfd934257f7fef4676dc9695f1174" . "cbdd5f803f244894e2c31a5b4894179083d76c24") (collects #"errortrace" #"errortrace-key.rkt") (collects #"scheme" #"main.rkt") (collects #"scheme" #"runtime-config.rkt"))
+("8.4" ta6nt ("ed37d767ad51b38f1d33a32713a76d4ac87c78e7" . "f3a79eb83eda2357bca71a1358d35afb8814dbfa") #"C:\\Users\\Kurisu\\Desktop\\labDobble_199294229_CristopherAngulo\\simbolo_199294229_CristopherAngulo.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"scheme" #"main.rkt") (collects #"scheme" #"runtime-config.rkt"))
