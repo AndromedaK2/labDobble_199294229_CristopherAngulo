@@ -1,5 +1,6 @@
 #lang scheme
 (provide element)
+(provide elements?)
 
 ;Implementación del TDA símbolo
 ;Representación:  string  | number 
