@@ -7,15 +7,31 @@
 (define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 
 ;Constructor
-;Dominio: Elements (list) X numE(int) X maxC(int) X rndFn (fn)
-;Recorrido: CardsSet
-;Descripción: 
-(define cardsSet (lambda (Elements numE maxC rndFn)
-    (if (and (>= numE 1)(>= maxC 1) (isValidOrder (- numE 1)) (not(null? Elements)))
-        (createLastNCards Elements (createNextNCards Elements (list (createFirstCard Elements numE)) (- numE 1) maxC 0) (- numE 1) maxC 1)
-        #false
+;Dominio: elementos 
+;Recorrido: mazo de cartas
+;Descripción: retorna un mazo de cartas
+(define cardsSet (lambda (elements numE maxC rndFn)
+    (if (and (>= numE 1)(>= maxC 1) (isValidOrder (- numE 1)) (elements? elements))
+        (createValidCardsSet elements numE maxC)
+        emptyCardsSet
     ))
 )
+
+
+;Constructor
+;Dominio: elements X numE(int) X maxC(int)
+;Recorrido: mazo de cartas
+;Descripción: mazo de cartas válido
+(define createValidCardsSet (lambda (elements numE maxC)
+    (createLastNCards elements
+      (createNextNCards elements
+         (addCardToDeck emptyCardsSet (createFirstCard elements numE)) (- numE 1) maxC 0) (- numE 1) maxC 1)))
+                              
+;Constructor
+;Dominio: no recibe parámetros
+;Recorrido: lista vacia
+;Descripción:  retorna una lista vacía
+(define emptyCardsSet null )
 
 ;Pertenencia
 ;Dominio: cardsSet
@@ -31,7 +47,7 @@
 
 ;Selectores
 
-;Modificadores
+;Modificador
 ;Dominio: Mazo de Cartas X Carta
 ;Recorrido: Mazo de Cartas
 (define addCardToDeck (lambda (cardSet newCard )
@@ -40,10 +56,10 @@
                             (append  cardSet (list newCard)))))
 
 
-;Otros
-; numE - 1 -> orden del plano proyectivo
-; maxC
-
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
 (define isValidOrder(lambda (order)
      (if (isPrimeWrapper order)
          #true
@@ -51,14 +67,24 @@
      ))
 )
 
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
 (define isPrimeWrapper (lambda (order)    
  (isPrime order 2)
 ))
 
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
+
 (define isPrime ( lambda (order count)
+     (if (= order 1) #f 
      (if (= order count) #t
      (if (= (remainder order count) 0) #f
-     (isPrime order (+ count 1))))))
+     (isPrime order (+ count 1)))))))
 
 (define calculateValueToDrawACard (lambda (n j i k) (- (+(+ n 2) (* n (- k 1)) (modulo(+(*(- i 1)(- k 1))(- j 1))n)) 1)))
 
@@ -132,9 +158,9 @@
 
 
 
-(define elementoss (list (element "A") (element "B") (element "C")))
+(define elementoss (list (element "A") (element 2) (element "C") (element "C") (element "C") (element "C") (element "C")))
 
-(cardsSet elementoss 2 3 3)
+(cardsSet elementoss 3 7 3)
 
 
 
