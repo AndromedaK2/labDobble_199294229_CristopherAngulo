@@ -61,11 +61,12 @@
 ;Recorrido:
 ;Descripción:
 (define isValidOrder(lambda (order)
+     (if (= order 1) #f 
      (if (isPrimeWrapper order)
          #true
          #false 
      ))
-)
+))
 
 ;Otros:
 ;Dominio:
@@ -81,10 +82,9 @@
 ;Descripción:
 
 (define isPrime ( lambda (order count)
-     (if (= order 1) #f 
      (if (= order count) #t
      (if (= (remainder order count) 0) #f
-     (isPrime order (+ count 1)))))))
+     (isPrime order (+ count 1))))))
 
 (define calculateValueToDrawACard (lambda (n j i k) (- (+(+ n 2) (* n (- k 1)) (modulo(+(*(- i 1)(- k 1))(- j 1))n)) 1)))
 
@@ -100,10 +100,10 @@
                         (if (null? elements)
                             null
                         (if (<= n 1)
-                            (cons (car elements) null)
-                            (cons (car elements) (createFirstCard (cdr elements) (- n 1)))))))
+                            (cons (getFirstElement elements) null)
+                            (cons (getFirstElement elements) (createFirstCard (getTailElements elements) (- n 1)))))))
 
-(define firstCard (createFirstCard elements 4))
+;(define firstCard (createFirstCard elements 4))
 
 ;Dominio: Mazo de Cartas X posición
 ;Recorrido: Simbolo
@@ -128,18 +128,26 @@
                            (if (= n j )
                                cardsSet
                                (createNextNCards elements
-                                (addCardToDeck cardsSet (auxiliarNextNCards elements (list(car elements)) n countTotalCards (+ j 1) 0 ))
+                                (addCardToDeck cardsSet (auxiliarNextNCards elements (list(getFirstElement elements)) n countTotalCards (+ j 1) 0 ))
                                  n countTotalCards (+ j 1)))))
 
 ;(addCardToDeck (addCardToDeck null firstCard) firstCard)
-                                                          
+
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
 (define secondAuxiliarCreateLastNCards (lambda (elements card n countTotalCards j i k)
                                          (if (> k n)
                                              card
                                              (secondAuxiliarCreateLastNCards elements
                                               (append card (list (getSymbolByPosition elements (calculateValueToDrawACard n j i k ))))
                                                n countTotalCards j i (+ k 1)))))
-                                            
+
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
 (define firstAuxiliarCreateLastNCards (lambda ( elements cardsSet n countTotalCards j i )
                                         (if (> j n)
                                             cardsSet
@@ -147,7 +155,11 @@
                                               (secondAuxiliarCreateLastNCards elements (list (getSymbolByPosition elements i))
                                                 n countTotalCards j i 1))                                                                                                           
                                                 n countTotalCards (+ j 1) i))))
-  
+
+;Otros:
+;Dominio:
+;Recorrido:
+;Descripción:
 (define createLastNCards (lambda (elements cardsSet n countTotalCards i)
                            (if (> i n)
                                cardsSet
@@ -158,8 +170,7 @@
 
 
 
-(define elementoss (list (element "A") (element 2) (element "C") (element "C") (element "C") (element "C") (element "C")))
-
+(define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 (cardsSet elementoss 3 7 3)
 
 

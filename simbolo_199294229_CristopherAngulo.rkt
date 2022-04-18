@@ -1,5 +1,5 @@
 #lang scheme
-(provide element)
+(provide element getFirstElement getTailElements)
 (provide elements?)
 
 ;Implementación del TDA símbolo
@@ -66,7 +66,7 @@
 
 
 ;Ejemplo de uso
-(define elements (list "1" 2 3 4 5 5 6 6 7))
-(elements? elements)
+;(define elements (list "1" 2 3 4 5 5 6 6 7))
+;(elements? elements)
 
 
