@@ -7,7 +7,7 @@
 (define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 
 ;Constructor
-;Dominio: elementos 
+;Dominio: elementos X número de elementos (number) X máximo número de cartas (number)
 ;Recorrido: mazo de cartas
 ;Descripción: retorna un mazo de cartas
 (define cardsSet (lambda (elements numE maxC rndFn)
@@ -19,23 +19,26 @@
 
 
 ;Constructor
-;Dominio: elements X numE(int) X maxC(int)
+;Dominio: elementos X numero de elementos X maximo de cartas 
 ;Recorrido: mazo de cartas
 ;Descripción: mazo de cartas válido
 (define createValidCardsSet (lambda (elements numE maxC)
     (createLastNCards elements
       (createNextNCards elements
-         (addCardToDeck emptyCardsSet (createFirstCard elements numE)) (- numE 1) maxC 0) (- numE 1) maxC 1)))
+        (addCardToDeck emptyCardsSet (createFirstCard elements numE))
+      (- numE 1) maxC 0) 
+    (- numE 1) maxC 1))
+)
                               
 ;Constructor
 ;Dominio: no recibe parámetros
 ;Recorrido: lista vacia
 ;Descripción:  retorna una lista vacía
-(define emptyCardsSet null )
+(define emptyCardsSet null)
 
 ;Pertenencia
-;Dominio: cardsSet
-;Recorrido: #true | #false
+;Dominio: mazo de cartas
+;Recorrido: true | false
 ;Descripción
 (define dobble? (lambda (cardsSet)
     (if (null? cardsSet)
@@ -45,55 +48,83 @@
 ))
 
 
-;Selectores
+;Selector
+;Dominio: mazo de cartas
+;Recorrido: cantidad de cartas (number)
+;Descripción retorna la cantidad de cartas del mazo
+(define numCards (lambda (cardsSet) (length cardsSet)))
 
+
+;Selector
+;Dominio: mazo de cartas X posición
+;Recorrido: carta
+;Descripción retorna la carta solicitada
+(define nthCard (lambda (cardsSet position)(list-ref cardsSet position)))         
+
+
+;Selector
+;Dominio: carta
+;Recorrido: cantidad total de cartas (number)
+;Descripción retorna cantidad total de cartas
+(define findTotalCards (lambda (card)(+ (* (- ( length card) 1) (- ( length card) 1))  (- ( length card) 1) +1)))                        
+
+
+;Selector
+;Dominio: mazo de cartas
+;Recorrido: carta
+;Descripción retorna cantidad de elementos necesarios para construir el mazo
+(define requiredElements (lambda(card)(+ (* (- ( length card) 1) (- ( length card) 1))  (- ( length card) 1) +1)))
+                           
+
+
+;Selector
+;Dominio
+;Recorrido
+;Descripción
+;(define missingCards )
+
+                           
 ;Modificador
 ;Dominio: Mazo de Cartas X Carta
 ;Recorrido: Mazo de Cartas
-(define addCardToDeck (lambda (cardSet newCard )
-                        (if (null? cardSet)
+(define addCardToDeck (lambda (cardsSet newCard )
+                        (if (null? cardsSet)
                             (append (list newCard))                      
-                            (append  cardSet (list newCard)))))
+                            (append  cardsSet (list newCard)))))
 
-
-;Otros:
-;Dominio:
-;Recorrido:
-;Descripción:
+;Otros
+;Dominio: orden del mazo
+;Recorrido: true | false
+;Descripción: 
 (define isValidOrder(lambda (order)
-     (if (= order 1) #f 
+     (if (= order 1) #false 
      (if (isPrimeWrapper order)
          #true
-         #false 
-     ))
-))
+         #false ))))
 
-;Otros:
+;Otros
 ;Dominio:
 ;Recorrido:
 ;Descripción:
-(define isPrimeWrapper (lambda (order)    
- (isPrime order 2)
-))
+(define isPrimeWrapper (lambda (order)(isPrime order 2)))
 
-;Otros:
-;Dominio:
-;Recorrido:
-;Descripción:
-
+;Otros 
+;Dominio: orden del mazo (number) X contador (number)
+;Recorrido: true | false
+;Descripción: Recursión de Cola que retorna un true cuando el valor es primo
 (define isPrime ( lambda (order count)
-     (if (= order count) #t
-     (if (= (remainder order count) 0) #f
+     (if (= order count) #true
+     (if (= (remainder order count) 0) #false
      (isPrime order (+ count 1))))))
 
+;Otros
+;Dominio: orden del mazo (number) X auxiliar j (number) X auxiliar i (number X auxiliar k (number)
+;Recorrido: posición (number)
+;Descripción: calcular el valor de la posición que deseamos sacar del conjunto de elementos
 (define calculateValueToDrawACard (lambda (n j i k) (- (+(+ n 2) (* n (- k 1)) (modulo(+(*(- i 1)(- k 1))(- j 1))n)) 1)))
 
-; ejemplo de uso (isPrimeWrapper 4)
-;(define my-list '(1 2 3 4 ))
-;(cardsSet my-list 4 13 2)
 
-
-;Dominio: Simbolos X Cantidad de Simbolos por carta
+;Dominio: elementos X Cantidad de elementos por carta
 ;Recorrido: Carta
 ;Tipo de Recursión: Recursión Natural
 (define createFirstCard (lambda (elements n)
@@ -103,22 +134,21 @@
                             (cons (getFirstElement elements) null)
                             (cons (getFirstElement elements) (createFirstCard (getTailElements elements) (- n 1)))))))
 
-;(define firstCard (createFirstCard elements 4))
 
-;Dominio: Mazo de Cartas X posición
+;Dominio: elementos X posición (number)
 ;Recorrido: Simbolo
-;Descripción: Obtener el Simbolo de la posición entragada en el mazo de cartas
-(define getSymbolByPosition (lambda (cardsSet position)
-                    (list-ref cardsSet position)))
+;Descripción: Obtener el elemento de la posición dada
+(define getElementByPosition (lambda (elements position)
+                    (list-ref elements position)))
                               
 
 ;Dominio: Mazo de Cartas X Carta X Cantidad de Elementos por Carta X Cantidad total de Cartas X Auxiliar Entero X Auxiliar Entero
 ;Recorrido: Carta
 ;Tipo de Recursión: Recursión de Cola
-(define auxiliarNextNCards (lambda (cardsSet card n countTotalCards j k )
+(define auxiliarNextNCards (lambda (elements card n countTotalCards j k )
                              (if (= n k)
                                  card
-                                 (auxiliarNextNCards cardsSet (append card (list (getSymbolByPosition cardsSet (+(* n j)(+ k 1)))))                                                     
+                                 (auxiliarNextNCards elements (append card (list (getElementByPosition elements (+(* n j)(+ k 1)))))                                                     
                                                                 n countTotalCards j (+ k 1) ))))
                                  
 ;Dominio: Lista de Simbolos x Cantidad de Simbolos por carta x cantidad total de cartas a generar 
@@ -131,8 +161,6 @@
                                 (addCardToDeck cardsSet (auxiliarNextNCards elements (list(getFirstElement elements)) n countTotalCards (+ j 1) 0 ))
                                  n countTotalCards (+ j 1)))))
 
-;(addCardToDeck (addCardToDeck null firstCard) firstCard)
-
 ;Otros:
 ;Dominio:
 ;Recorrido:
@@ -141,7 +169,7 @@
                                          (if (> k n)
                                              card
                                              (secondAuxiliarCreateLastNCards elements
-                                              (append card (list (getSymbolByPosition elements (calculateValueToDrawACard n j i k ))))
+                                              (append card (list (getElementByPosition elements (calculateValueToDrawACard n j i k ))))
                                                n countTotalCards j i (+ k 1)))))
 
 ;Otros:
@@ -152,10 +180,9 @@
                                         (if (> j n)
                                             cardsSet
                                             (firstAuxiliarCreateLastNCards elements (addCardToDeck cardsSet
-                                              (secondAuxiliarCreateLastNCards elements (list (getSymbolByPosition elements i))
+                                              (secondAuxiliarCreateLastNCards elements (list (getElementByPosition elements i))
                                                 n countTotalCards j i 1))                                                                                                           
                                                 n countTotalCards (+ j 1) i))))
-
 ;Otros:
 ;Dominio:
 ;Recorrido:
@@ -163,17 +190,20 @@
 (define createLastNCards (lambda (elements cardsSet n countTotalCards i)
                            (if (> i n)
                                cardsSet
-                               (createLastNCards elements (firstAuxiliarCreateLastNCards elements cardsSet n countTotalCards 1 i)
+                               (createLastNCards elements
+                                  (firstAuxiliarCreateLastNCards elements cardsSet n countTotalCards 1 i)
                                                  n countTotalCards (+ i 1)))))  
 
-
-
-
-
+;Elementos de ejemplo
 (define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
+;Mazo de carta de ejemplo
 (cardsSet elementoss 3 7 3)
-
-
+;Cantidad de cartas del mazo
+(numCards (cardsSet elementoss 3 7 3) )
+;Retornar Carta
+(nthCard (cardsSet elementoss 3 7 3) 2 )
+;Encontrar total de cartas
+(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2 ))
 
 
 
