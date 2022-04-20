@@ -1,11 +1,9 @@
 #lang scheme
-(require "simbolo_199294229_CristopherAngulo.rkt")
-(require "carta_199294229_CristopherAngulo.rkt")
+(require "simbolo_19929422_CristopherAngulo.rkt")
+(require "carta_19929422_CristopherAngulo.rkt")
 (provide cardsSet)
 ;Implementación del TDA mazo
 ;Representación:  Lista de Cartas
-
-(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 
 ;Constructor
 ;Dominio: no recibe parámetros
@@ -197,15 +195,21 @@
                             n countTotalCards (+ i 1)))))  
 
 ;Elementos de ejemplo
+(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 (define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 ;Mazo de carta de ejemplo
 (cardsSet elementoss 3 7 3)
+(cardsSet elements   4 13 3)
 ;Cantidad de cartas del mazo
 (numCards (cardsSet elementoss 3 7 3) )
+(numCards (cardsSet elementoss 3 7 3) )
 ;Retornar Carta
-(nthCard (cardsSet elementoss 3 7 3) 2 )
+(nthCard (cardsSet elements  4 13 3) 2 )
+(nthCard (cardsSet elements   4 13 3) 2 )
 ;Encontrar total de cartas
-(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2 ))
+(findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
+(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
+
 
 
 

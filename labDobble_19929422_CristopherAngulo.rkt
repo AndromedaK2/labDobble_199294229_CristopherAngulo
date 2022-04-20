@@ -1,8 +1,8 @@
 #lang scheme
-(require "carta_199294229_CristopherAngulo.rkt")
-(require "simbolo_199294229_CristopherAngulo.rkt")
-(require "mazo_199294229_CristopherAngulo.rkt")
-(require "jugador_199294229_CristopherAngulo.rkt")
+(require "carta_19929422_CristopherAngulo.rkt")
+(require "simbolo_19929422_CristopherAngulo.rkt")
+(require "mazo_19929422_CristopherAngulo.rkt")
+(require "jugador_19929422_CristopherAngulo.rkt")
 
 (define m 2147483647)
 (define a 1103515245)

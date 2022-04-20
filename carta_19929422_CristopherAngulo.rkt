@@ -1,5 +1,5 @@
 #lang scheme
-(require "simbolo_199294229_CristopherAngulo.rkt")
+(require "simbolo_19929422_CristopherAngulo.rkt")
 (provide createCard getlengthCard)
 ;Implementación del TDA carta
 ;Representación: Lista de Simbolos

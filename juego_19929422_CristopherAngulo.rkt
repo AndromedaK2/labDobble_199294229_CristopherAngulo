@@ -1,3 +1,3 @@
 #lang scheme
-;Implementación del TDA juego
+;Implementación del TDA Juego
 ;Representación:
