@@ -40,12 +40,65 @@
 ;Recorrido: true | false
 ;Descripción
 (define dobble? (lambda (cardsSet)
-    (if (null? cardsSet)
+    (if (and (allCardsAreDifferentElements cardsSet) (= 1 1))
         #true
         #false
     )
 ))
 
+
+
+;Otro
+;Dominio: mazo de cartas 
+;Recorrido: true | false
+;Descripción
+(define allCardsAreDifferentElements (lambda (cardsSet)
+   (if (null? cardsSet)
+       #true
+   (if(cardAreDifferentElements (getFirstCard cardsSet ))
+      (allCardsAreDifferentElements (getLastCards cardsSet))
+      #false
+   )
+  )
+ )
+)
+
+
+; carta (1,8,9,19)
+;
+(define cardAreDifferentElements (lambda (card)
+   (if (null? card)
+       #true
+   (if (compareCardElements (getTailElements card) (getFirstElement card))
+       (cardAreDifferentElements (getTailElements card))
+       #false))))
+                                 
+
+; 
+; carta -> (1,8,9,10)
+; cola card -> (8,9,10)
+; element -> (1)
+(define compareCardElements (lambda (card element)
+   (if (null? card)
+       #true
+   (if (eqv? element (getFirstElement card))
+       #false
+       (compareCardElements (getTailElements card) element)))))
+          
+          
+
+
+;Selector
+;Dominio: mazo de cartas
+;Recorrido: carta
+;Descripción retorna la primera carta del mazo entrante
+(define getFirstCard (lambda (cardsSet)(car cardsSet)))
+
+;Selector
+;Dominio: mazo de cartas
+;Recorrido: mazo de cartas
+;Descripción retorna el mazo de carta sin la primera carta
+(define getLastCards (lambda (cardsSet)(cdr cardsSet)))
 
 ;Selector
 ;Dominio: mazo de cartas
@@ -209,7 +262,8 @@
 ;Encontrar total de cartas
 (findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
 (findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
-
+;el juego es valido dobble
+(dobble? (cardsSet elementoss 3 7 3))
 
 
 
