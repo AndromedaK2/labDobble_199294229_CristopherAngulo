@@ -1,6 +1,6 @@
 #lang scheme
 (require "simbolo_19929422_CristopherAngulo.rkt")
-(provide createCard getlengthCard)
+(provide createCard getlengthCard cards?)
 ;Implementación del TDA carta
 ;Representación: Lista de Simbolos
 
@@ -10,6 +10,14 @@
 (define createCard (lambda( firstElement elements )
         (cons firstElement elements)))
 
+
+;Pertenencia
+;Dominio: Cartas
+;Recorrido: True | False
+(define cards? (lambda (cards)
+                 (if (list? cards)
+                     #true
+                     #false)))
 
 
 ;Selector

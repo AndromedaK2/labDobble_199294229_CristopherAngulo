@@ -17,7 +17,7 @@
 ;Recorrido: mazo de cartas
 ;Descripción: retorna un mazo de cartas
 (define cardsSet (lambda (elements numE maxC rndFn)
-    (if (and (>= numE 1)(>= maxC 1) (isValidOrder (- numE 1)) (elements? elements))
+    (if (and (>= numE 1)(>= maxC 1) (elements? elements))
         (createValidCardsSet elements numE maxC)
         emptyCardsSet ))
 )
@@ -217,9 +217,9 @@
 ;Recorrido: true | false
 ;Descripción: Recursión de Cola que retorna un true cuando el valor es primo
 (define isPrime ( lambda (order count)
-    (if (= order count) #true
+    ;(if (= order count) #true
     (if (= (remainder order count) 0) #false
-    (isPrime order (+ count 1))))))
+    (isPrime order (+ count 1)))))
 
 ;Otros
 ;Dominio: orden del mazo (number) X auxiliar j (number) X auxiliar i (number X auxiliar k (number)
@@ -315,6 +315,7 @@
 (findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
 ;el juego es valido dobble
 (dobble? (cardsSet elements 4 13 3)) 
+;(define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 
 
 
