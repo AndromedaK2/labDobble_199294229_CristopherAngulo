@@ -1,7 +1,7 @@
 #lang scheme
 (require "simbolo_19929422_CristopherAngulo.rkt")
 (require "carta_19929422_CristopherAngulo.rkt")
-(provide cardsSet)
+(provide cardsSet dobble? )
 ;Implementación del TDA mazo
 ;Representación:  Lista de Cartas
 
@@ -40,7 +40,7 @@
 ;Recorrido: true | false
 ;Descripción
 (define dobble? (lambda (cardsSet)
-    (if (and (allCardsAreOneElementInCommon cardsSet) (= 1 1))
+    (if (and (allCardsAreOneElementInCommon cardsSet) (allCardsAreDifferentElements cardsSet ))
         #true
         #false
     )
@@ -299,10 +299,22 @@
                             n countTotalCards (+ i 1)))))  
 
 ;Elementos de ejemplo
-
+(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 (define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
-
-(dobble? (cardsSet elementoss 3 7 3)) 
+;Mazo de carta de ejemplo
+(cardsSet elementoss 3 7 3)
+(cardsSet elements   4 13 3)
+;Cantidad de cartas del mazo
+(numCards (cardsSet elementoss 3 7 3) )
+(numCards (cardsSet elementoss 3 7 3) )
+;Retornar Carta
+(nthCard (cardsSet elements  4 13 3) 2 )
+(nthCard (cardsSet elements   4 13 3) 2 )
+;Encontrar total de cartas
+(findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
+(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
+;el juego es valido dobble
+(dobble? (cardsSet elements 4 13 3)) 
 
 
 
