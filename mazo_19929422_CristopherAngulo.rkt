@@ -40,15 +40,66 @@
 ;Recorrido: true | false
 ;Descripción
 (define dobble? (lambda (cardsSet)
-    (if (and (allCardsAreDifferentElements cardsSet) (= 1 1))
+    (if (and (allCardsAreOneElementInCommon cardsSet) (= 1 1))
         #true
         #false
     )
 ))
 
+(define allCardsAreOneElementInCommon (lambda (cardsSet)
+   (if (compareFirstCardWithTailCards (car cardsSet) (cdr cardsSet))
+       #true
+       #false)))
 
 
-;Otro
+;Dominio: Primera Carta X Cartas restantes del mazo
+;Recorrido: true | false
+
+(define compareFirstCardWithTailCards (lambda (firstCard tailCards)
+   (if (null? tailCards)
+       #true
+   (if (compareFirstCardWithTailCardsInside firstCard tailCards)
+       (compareFirstCardWithTailCards (car tailCards) (cdr tailCards))
+       #false))))
+
+
+
+;Dominio: Primera Carta X Cartas restantes del mazo
+;Recorrido: true | false
+(define compareFirstCardWithTailCardsInside(lambda (headCard tailCards)
+   (if (null? tailCards)
+       #true
+   (if (compareTwoCards (append headCard (car tailCards)) 0)
+       (compareFirstCardWithTailCardsInside headCard (cdr tailCards))
+       #false))))
+
+
+;Dominio: 2 Cartas Unidas en una sola lista
+;Recorrido: true | false
+;ejemplo (1,2,3,4,1,5,6,7)
+;primera recursión: comparar 1  con la cola (2,3,4,1,5,6,7) 1 elemento en común
+;segunda recursión: comparar el 2 con la cola (3,4,1,5,6,7) ningún elemento en común
+(define compareTwoCards(lambda (joinCard count)
+   (if (and (null? joinCard)(= count 1))
+       #true
+   (if (< count 2)
+       (compareTwoCards (getTailElements joinCard) (+ count(compareElements(getFirstElement joinCard)(cdr joinCard)0)))
+       #false))))
+  
+                      
+;Dominio: Primer Elemento de la carta unida X Resto de elementos de la carta unida
+;Recorrido: numero de veces que repite un elemento entre las 2 cartas
+; ejemplo: (1,2,3,4) (1,5,6,7) -> (1,2,3,4,1,5,6,7)
+; tomar  1 y comparlo con el 2 
+(define compareElements (lambda (firstElement tailElement count)
+   (if (null? tailElement)
+       count
+   (if (eqv? firstElement (car tailElement))
+        (compareElements firstElement (getTailElements tailElement) (+ count 1))
+        (compareElements firstElement (getTailElements tailElement) count )))))
+
+        
+       
 ;Dominio: mazo de cartas 
 ;Recorrido: true | false
 ;Descripción
@@ -248,22 +299,10 @@
                             n countTotalCards (+ i 1)))))  
 
 ;Elementos de ejemplo
-(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
+
 (define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
-;Mazo de carta de ejemplo
-(cardsSet elementoss 3 7 3)
-(cardsSet elements   4 13 3)
-;Cantidad de cartas del mazo
-(numCards (cardsSet elementoss 3 7 3) )
-(numCards (cardsSet elementoss 3 7 3) )
-;Retornar Carta
-(nthCard (cardsSet elements  4 13 3) 2 )
-(nthCard (cardsSet elements   4 13 3) 2 )
-;Encontrar total de cartas
-(findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
-(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
-;el juego es valido dobble
-(dobble? (cardsSet elementoss 3 7 3))
+
+(dobble? (cardsSet elementoss 3 7 3)) 
 
 
 
