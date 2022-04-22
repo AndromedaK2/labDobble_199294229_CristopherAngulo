@@ -1,1 +1,1 @@
-("8.4" ta6nt ("733d4e3cabd38dd374cc73762a8a5575bd587cc5" . "cbdd5f803f244894e2c31a5b4894179083d76c24") (collects #"errortrace" #"errortrace-key.rkt") (collects #"scheme" #"main.rkt") (collects #"scheme" #"runtime-config.rkt"))
+("8.4" ta6nt ("1dca6458ebfd491b8440aea6de173a6b95f8cf09" . "61b7750203197bc537a486b3f5c740b58766f96c") #"C:\\Users\\Kurisu\\Desktop\\labDobble_199294229_CristopherAngulo\\mazo_19929422_CristopherAngulo.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"scheme" #"main.rkt") (collects #"scheme" #"runtime-config.rkt"))

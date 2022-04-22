@@ -1,7 +1,7 @@
 #lang scheme
 (require "simbolo_19929422_CristopherAngulo.rkt")
 (require "carta_19929422_CristopherAngulo.rkt")
-(provide cardsSet dobble? )
+(provide cardsSet dobble? getFirstCard getSecondCard)
 ;Implementación del TDA mazo
 ;Representación:  Lista de Cartas
 
@@ -144,6 +144,13 @@
 ;Recorrido: carta
 ;Descripción retorna la primera carta del mazo entrante
 (define getFirstCard (lambda (cardsSet)(car cardsSet)))
+
+;Selector
+;Dominio: mazo de cartas
+;Recorrido: carta
+;Descripción retorna la primera carta del mazo entrante
+(define getSecondCard (lambda (cardsSet)(cadr cardsSet)))
+
 
 ;Selector
 ;Dominio: mazo de cartas
@@ -299,22 +306,22 @@
                             n countTotalCards (+ i 1)))))  
 
 ;Elementos de ejemplo
-(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
-(define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
+;(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
+;(define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 ;Mazo de carta de ejemplo
-(cardsSet elementoss 3 7 3)
-(cardsSet elements   4 13 3)
+;(cardsSet elementoss 3 7 3)
+;(cardsSet elements   4 13 3)
 ;Cantidad de cartas del mazo
-(numCards (cardsSet elementoss 3 7 3) )
-(numCards (cardsSet elementoss 3 7 3) )
+;(numCards (cardsSet elementoss 3 7 3) )
+;(numCards (cardsSet elementoss 3 7 3) )
 ;Retornar Carta
-(nthCard (cardsSet elements  4 13 3) 2 )
-(nthCard (cardsSet elements   4 13 3) 2 )
+;(nthCard (cardsSet elements  4 13 3) 2 )
+;(nthCard (cardsSet elements   4 13 3) 2 )
 ;Encontrar total de cartas
-(findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
-(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
+;(findTotalCards (nthCard (cardsSet elements 4 13 3) 2) )
+;(findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
 ;el juego es valido dobble
-(dobble? (cardsSet elements 4 13 3)) 
+;(dobble? (cardsSet elements 4 13 3)) 
 ;(define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 
 
