@@ -21,11 +21,6 @@
 (define initialPlayers null)
 (define initialAreaGame "área de juego")
 
-(define validateNumberOfPlayerToPlay (lambda ( numPlayers)
-    (if (and (number? numPlayers) ( > numPlayers 1))
-        #true
-        #false)))
-
 
 ;Selector
 ;Dominio: Juego
@@ -85,18 +80,17 @@
 ;Recorrido: juego
 ;Descripción: registra un usuario nuevo al juego
 (define register (lambda (player game)
-   (if (and (player? player) (not(playerIsRegistered (getPlayers game) player)))
-         (list (getNumberPlayers game) ( append (getPlayers game) (list player) ) (getCardsSet game) (getPlayMode game) (getAreaGame game))
+   (if (and (player? player) (not(playerIsRegistered (getPlayers game) player)) (validateNumberOfPlayerToAdd (getPlayers game) (getNumberPlayers game) ))
+         (list (getNumberPlayers game)(append (getPlayers game)(list player))(getCardsSet game)(getPlayMode game)(getAreaGame game))
           game)))                                                              
 
 
 ;Modificador
 (define play (lambda (game action)
  (if (null? action)
-    (list (getNumberPlayers game) (getPlayers game)
-          (getCardsSet game) (getPlayMode game) ((getPlayMode game) (getCardsSet game)))  
+   (list(getNumberPlayers game)(getPlayers game)(getCardsSet game)(getPlayMode game)((getPlayMode game)(getCardsSet game)))  
      #false
-     )))
+)))
              
 ;Otros
 ;Dominio: Jugadores X Jugador
@@ -109,7 +103,20 @@
       (playerIsRegistered (getLastPlayers players) player)
       #true))))
 
-
+(define validateNumberOfPlayerToAdd (lambda (players numberPlayers)
+            (if (< (length players) numberPlayers)
+                  #true
+                  #false)))
+                 
+                 
+;Otros
+;Dominio: Número de Jugadores Iniciales Permitidos
+;Recorrido:  True | False
+;Descripción: Validar si el número de jugadores es mayor a 1
+(define validateNumberOfPlayerToPlay (lambda ( numPlayers)
+    (if (and (number? numPlayers) ( > numPlayers 1))
+        #true
+        #false)))
 
 (define numPlayers 2)
 (define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13 ))
