@@ -93,15 +93,11 @@
 ;Modificador
 (define play (lambda (game action)
  (if (null? action)
-    (list (getNumberPlayers game) ( append (getPlayers game) (list player))
+    (list (getNumberPlayers game) (getPlayers game)
           (getCardsSet game) (getPlayMode game) ((getPlayMode game) (getCardsSet game)))  
      #false
      )))
-  
-
-
-                 
-
+             
 ;Otros
 ;Dominio: Jugadores X Jugador
 ;Recorrido:  True | False
@@ -127,7 +123,7 @@
 (define player3 (player "cristobal"))
 
 ;(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
-(play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null) 
+(play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null)
 
 
 
