@@ -65,6 +65,13 @@
 (define getPlayMode (lambda (game) (cadddr game)))
 
 
+;Selector
+;Dominio: Juego 
+;Recorrido:  Jugador que le toca jugar
+;Descripción: Retorna el usuario que le toca jugar
+(define whoseTurnIsIt? (lambda (game) (getFirstPlayer(getPlayers game))))
+; recordar -> mover el jugador al último                    
+
 
 ;Modificador
 ;Dominio: jugador X Juego
@@ -72,7 +79,7 @@
 ;Descripción: registra un usuario nuevo al juego
 (define register (lambda (player game)
    (if (and (player? player) (not(playerIsRegistered (getPlayers game) player)))
-         (list (list (getNumberPlayers game)) ( append (list player) (getPlayers game)) (getCardsSet game) (getPlayMode game))
+         (list (list (getNumberPlayers game)) ( append (getPlayers game) (list player) ) (getCardsSet game) (getPlayMode game))
           game)))                                                              
 
 
@@ -102,4 +109,8 @@
 (define player1 (player "cristopher"))
 
 (register "pedro" (register "Felipe" (register "Cristopher" game1)))
+(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
+
+
+
 
