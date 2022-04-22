@@ -14,7 +14,7 @@
 
 ;Constructor
 ;Dominio: elementos (lista de símbolos) X número de elementos (number) X máximo número de cartas (number) X Función Random
-;Recorrido: mazo de cartas
+;Recorrido: mazo de cartas | mazo de cartas vacío | mazo de cartas incompleto
 ;Descripción: retorna un mazo de cartas
 (define cardsSet (lambda (elements numberElements maxCards rndFn)
     (if (and (>= numberElements 1)
@@ -29,15 +29,15 @@
              (isAValidCardsSetToCreate elements numberElements (getMaxNumberOfCards numberElements))
              (elements? elements))
       (createValidCardsSet elements numberElements (getMaxNumberOfCards numberElements))
-;    (if (and (>= numberElements 1)
-;             (>= maxCards 1))
-
-;      (createIncompleteCardsSet
-       emptyCardsSet
-
-
+    (if (and (>= numberElements 1)
+             (>= maxCards 1)
+             (isValidOrder (getOrderOfCardsSet numberElements))
+             (<= maxCards (getMaxNumberOfCards numberElements) ) 
+             (not(isAValidCardsSetToCreate elements numberElements maxCards)))
+      (createIncompleteCardsSet (createValidCardsSet elements numberElements maxCards) emptyCardsSet  maxCards 0)
+      emptyCardsSet
         
-))))
+)))))
 
 ;Constructor
 ;Dominio: elementos X numero de elementos X maximo de cartas 
@@ -54,8 +54,12 @@
     )
 )
 
-;(define createIncompleteCardsSet (lambda (elements numberElements maxCards)
-;                                 ))
+(define createIncompleteCardsSet (lambda (cardsSet incompleteCardsSet maxNumberCards count)
+    (if (= maxNumberCards count)
+     incompleteCardsSet
+     (createIncompleteCardsSet (getLastCards cardsSet)
+     (addCardsToDeck incompleteCardsSet (car cardsSet)) maxNumberCards (+ count 1)))                                                                      
+))
 
 
 ;Dominio:
@@ -296,12 +300,8 @@
 ;Recorrido: Carta
 ;Tipo de Recursión: Recursión Natural
 (define createFirstCard (lambda (elements n)
-    (if (null? elements)
-        null
-    (if (<= n 1)
-        (createCard (getFirstElement elements) null)
-        (createCard (getFirstElement elements) (createFirstCard (getTailElements elements) (- n 1)))))))
-
+    (if (<= n 1)(createCard (getFirstElement elements) null)
+        (createCard (getFirstElement elements) (createFirstCard (getTailElements elements) (- n 1))))))
 
 
 ;Otro
@@ -315,7 +315,7 @@
                                     n countTotalCards j (+ k 1) ))))
 
 ;Otro
-;Dominio: Lista de Simbolos x Cantidad de Simbolos por carta x cantidad total de cartas a generar 
+;Dominio: Lista de Simbolos X Mazo de Cartas X Cantidad de Simbolos por carta x cantidad total de cartas a generar 
 ;Recorrido: Mazo de las N  Cartas
 ;Tipo de recursión: Recursión de Cola
 (define createNextNCards (lambda (elements cardsSet n countTotalCards j)
@@ -362,9 +362,10 @@
 (define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13))
 (define elementoss (list (element "A") (element 2) (element "D") (element "C") (element "3") (element 8) (element 10)))
 ;Mazo de carta de ejemplo
-(cardsSet elementoss 3 -1 3)
-(cardsSet elementoss 3 7 3)
-(cardsSet elements   4 13 3)
+(cardsSet elements 4 12 3)
+;(cardsSet elementoss 3 -1 3)
+;(cardsSet elementoss 3 7 3)
+;(cardsSet elements   4 13 3)
 ;Cantidad de cartas del mazo
 (numCards (cardsSet elementoss 3 7 3) )
 (numCards (cardsSet elementoss 3 7 3) )
