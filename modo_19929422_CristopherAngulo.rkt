@@ -10,7 +10,7 @@
 ;Recorrido: Función de StackMode 
 ;Descripción: Devuelve el Modo de juego Stack
 (define stackMode (lambda (cardsSet)
-   (append (getFirstCard cardsSet) (getSecondCard cardsSet))) 
+   (list (getFirstCard cardsSet) (getSecondCard cardsSet))) 
 )
 
 

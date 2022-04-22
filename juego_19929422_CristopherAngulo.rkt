@@ -13,12 +13,13 @@
 ;Descripción: Función que crea el juego
 (define game (lambda (numPlayers cardsSet mode rndFn)
  (if (and (validateNumberOfPlayerToPlay numPlayers) (dobble? cardsSet))     
-     (list numPlayers initialPlayers  cardsSet mode )
+     (list numPlayers initialPlayers cardsSet mode initialAreaGame)
       null)))
 
 
 
 (define initialPlayers null)
+(define initialAreaGame "área de juego")
 
 (define validateNumberOfPlayerToPlay (lambda ( numPlayers)
     (if (and (number? numPlayers) ( > numPlayers 1))
@@ -67,6 +68,12 @@
 
 ;Selector
 ;Dominio: Juego 
+;Recorrido:  Modo de Juego
+;Descripción: Retorna el modo de juego
+(define getAreaGame (lambda (game) ( car (cddddr  game))))
+
+;Selector
+;Dominio: Juego 
 ;Recorrido:  Jugador que le toca jugar
 ;Descripción: Retorna el usuario que le toca jugar
 (define whoseTurnIsIt? (lambda (game) (getFirstPlayer(getPlayers game))))
@@ -79,12 +86,21 @@
 ;Descripción: registra un usuario nuevo al juego
 (define register (lambda (player game)
    (if (and (player? player) (not(playerIsRegistered (getPlayers game) player)))
-         (list (list (getNumberPlayers game)) ( append (getPlayers game) (list player) ) (getCardsSet game) (getPlayMode game))
+         (list (getNumberPlayers game) ( append (getPlayers game) (list player) ) (getCardsSet game) (getPlayMode game) (getAreaGame game))
           game)))                                                              
 
 
 ;Modificador
-;(define play)
+(define play (lambda (game action)
+ (if (null? action)
+    (list (getNumberPlayers game) ( append (getPlayers game) (list player))
+          (getCardsSet game) (getPlayMode game) ((getPlayMode game) (getCardsSet game)))  
+     #false
+     )))
+  
+
+
+                 
 
 ;Otros
 ;Dominio: Jugadores X Jugador
@@ -107,10 +123,11 @@
 ; game1 
 
 (define player1 (player "cristopher"))
+(define player2 (player "cristian"))
+(define player3 (player "cristobal"))
 
-(register "pedro" (register "Felipe" (register "Cristopher" game1)))
-(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
-
+;(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
+(play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null) 
 
 
 
