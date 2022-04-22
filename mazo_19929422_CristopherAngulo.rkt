@@ -35,8 +35,7 @@
              (<= maxCards (getMaxNumberOfCards numberElements) ) 
              (not(isAValidCardsSetToCreate elements numberElements maxCards)))
       (createIncompleteCardsSet (createValidCardsSet elements numberElements maxCards) emptyCardsSet  maxCards 0)
-      emptyCardsSet
-        
+      emptyCardsSet        
 )))))
 
 ;Constructor
@@ -274,20 +273,21 @@
         #true
         #false ))))
 
-;Otros
-;Dominio:
-;Recorrido:
-;Descripción:
-(define isPrimeWrapper (lambda (order)(isPrime order 2)))
 
 ;Otros 
 ;Dominio: orden del mazo (number) X contador (number)
 ;Recorrido: true | false
 ;Descripción: Recursión de Cola que retorna un true cuando el valor es primo
-(define isPrime ( lambda (order count)
-    (if (= order count) #true
-    (if (= (remainder order count) 0) #false
-    (isPrime order (+ count 1))))))
+(define isPrimeWrapper (lambda (order)
+   (define isPrime ( lambda (order count)
+        (if (= order count)
+           #true
+         (if (= (remainder order count) 0)
+           #false
+           (isPrime order (+ count 1))))))
+  (isPrime order 2)))
+
+
 
 ;Otros
 ;Dominio: orden del mazo (number) X auxiliar j (number) X auxiliar i (number X auxiliar k (number)
@@ -377,7 +377,7 @@
 (findTotalCards (nthCard (cardsSet elementoss 3 7 3) 2) )
 ;el juego es valido dobble
 (dobble? (cardsSet elements 4 13 3)) 
-
+(cardsSet (list "A" "B" "C") 2 -1 2)
 
 
 
