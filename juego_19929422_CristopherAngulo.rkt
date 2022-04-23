@@ -8,10 +8,10 @@
 
 
 ;Constructor
-;Dominio: Número de Jugadores X Mazo de Cartas X Modo de Juego X Función Random
+;Dominio: Número de Jugadores X Jugadores X Mazo de Cartas X Modo de Juego X Función Random x
 ;Recorrido: Juego 
 ;Descripción: Función que crea el juego
-(define game (lambda (numPlayers cardsSet mode rndFn)
+(define game (lambda (numPlayers cardsSet mode randomFn)
  (if (and (validateNumberOfPlayerToPlay numPlayers) (dobble? cardsSet))     
      (list numPlayers initialPlayers cardsSet mode initialAreaGame)
       null)))
@@ -118,9 +118,16 @@
         #true
         #false)))
 
+
+(define m 22)
+(define a 15)
+(define c 38)
+
+(define randomFn (lambda (xn)(modulo (+ (* a xn) c) m)))
+
 (define numPlayers 2)
 (define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13 ))
-(define dobbleCards (cardsSet elements 4 13 3))
+(define dobbleCards (cardsSet elements 4 13 randomFn))
 (define game1  (game numPlayers dobbleCards stackMode 2))
 ;ejemplo de ejecución de juego
 ; game1 
@@ -129,7 +136,7 @@
 (define player2 (player "cristian"))
 (define player3 (player "cristobal"))
 
-;(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
+(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
 (play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null)
 
 
