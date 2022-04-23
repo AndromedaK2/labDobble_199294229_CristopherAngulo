@@ -15,26 +15,26 @@
 ;Dominio: elementos (lista de símbolos) X número de elementos (number) X máximo número de cartas (number) X Función Random
 ;Recorrido: mazo de cartas | mazo de cartas vacío | mazo de cartas incompleto
 ;Descripción: retorna un mazo de cartas
-(define cardsSet (lambda (elements numberElements maxCards rndFn)
+(define cardsSet (lambda (elements numberElements maxCards randomFn)
     (if (and (>= numberElements 1)
              (>= maxCards 1)
              (isValidOrder (getOrderOfCardsSet numberElements))
              (isAValidCardsSetToCreate elements numberElements maxCards)
              (elements? elements))
-      (createValidCardsSet elements numberElements maxCards)
+     (shuffleCardsSet (createValidCardsSet elements numberElements maxCards) randomFn)
     (if (and (>= numberElements 1)
              (= maxCards -1)
              (isValidOrder (getOrderOfCardsSet numberElements))
              (isAValidCardsSetToCreate elements numberElements (getMaxNumberOfCards numberElements))
              (elements? elements))
-      (createValidCardsSet elements numberElements (getMaxNumberOfCards numberElements))
+     (shuffleCardsSet (createValidCardsSet elements numberElements (getMaxNumberOfCards numberElements)) randomFn)
     (if (and (>= numberElements 1)
              (>= maxCards 1)
              (isValidOrder (getOrderOfCardsSet numberElements))
              (<= maxCards (getMaxNumberOfCards numberElements) ) 
              (not(isAValidCardsSetToCreate elements numberElements maxCards))
              (elements? elements))
-      (createIncompleteCardsSet (createValidCardsSet elements numberElements maxCards) emptyCardsSet  maxCards 0)
+     (shuffleCardsSet (createIncompleteCardsSet (createValidCardsSet elements numberElements maxCards) emptyCardsSet  maxCards 0) randomFn)
       emptyCardsSet        
 )))))
 
@@ -323,10 +323,10 @@
 ;Dominio
 ;Recorrido
 ;Descripción
-(define missingCards (lambda (cardsSetToValidate elements)
+(define missingCards (lambda (cardsSetToValidate elements randomFn)
     (if (= (numCards cardsSetToValidate) (findTotalCards (nthCard cardsSetToValidate 1))) 
       null      
-     (outerCardsSet (cardsSet elements (length (nthCard cardsSetToValidate 1)) (findTotalCards (nthCard cardsSetToValidate 1)) 2) cardsSetToValidate )
+     (outerCardsSet (cardsSet elements (length (nthCard cardsSetToValidate 1)) (findTotalCards (nthCard cardsSetToValidate 1)) randomFn) cardsSetToValidate )
 )))         
 
 
@@ -392,6 +392,22 @@
 ;Recorrido: posición (number)
 ;Descripción: calcular el valor de la posición que deseamos sacar del conjunto de elementos
 (define calculateValueToDrawACard (lambda (n j i k) (- (+(+ n 2) (* n (- k 1)) (modulo(+(*(- i 1)(- k 1))(- j 1))n)) 1)))
+
+
+;Otro
+;Dominio: RandomFunction
+;Recorrido: Mazo de Cartas desordenado
+;Descripción: Desordena el mazo de cartas
+(define shuffleCardsSet (lambda ( cardsSet randomFn)
+      (define shuffleCardsSetAuxiliar (lambda (randomFn cardsSet count)
+          (if ( = count (randomFn (length cardsSet)))
+              cardsSet
+              (shuffleCardsSetAuxiliar randomFn (append  (getLastCards cardsSet)  (list(getFirstCard cardsSet))) (+ count 1)))))
+     (shuffleCardsSetAuxiliar randomFn cardsSet 0)))
+
+
+
+
 
 
 
