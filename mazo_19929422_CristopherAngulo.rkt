@@ -282,6 +282,19 @@
         (append (list newCard))                      
         (append  cardsSet (list newCard)))))
 
+;Modificador
+;Dominio: Mazo de Cartas
+;Recorrido: string con las cartas del mazo
+;Descripción: retorna una representación en cadena de caracteres para el mazo de cartas
+(define cardsSet->string (lambda (cardsSet)
+    (define cardsSet->stringAuxiliar (lambda (cardsSet position cardsSetToString )
+       (if (null? cardsSet)
+           cardsSetToString
+           (cardsSet->stringAuxiliar (getLastCards cardsSet) (+ position 1) (string-append cardsSetToString (card->string (getFirstCard cardsSet) position ) "\n")))))
+   (cardsSet->stringAuxiliar cardsSet  1 "Cartas")))
+           1
+
+                                                             
 ;Otros
 ;Dominio: orden del mazo
 ;Recorrido: true | false
