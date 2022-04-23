@@ -61,7 +61,7 @@
 
 
 ;Ejemplo
-(card->string (list 2 3 4) 1)
+;(card->string (list 2 3 4) 1)
 
         
                  
