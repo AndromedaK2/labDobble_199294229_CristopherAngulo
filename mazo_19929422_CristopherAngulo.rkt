@@ -291,7 +291,7 @@
        (if (null? cardsSet)
            cardsSetToString
            (cardsSet->stringAuxiliar (getLastCards cardsSet) (+ position 1) (string-append cardsSetToString (card->string (getFirstCard cardsSet) position ) "\n")))))
-   (cardsSet->stringAuxiliar cardsSet  1 "Cartas")))
+   (cardsSet->stringAuxiliar cardsSet  1 "")))
            1
 
                                                              
