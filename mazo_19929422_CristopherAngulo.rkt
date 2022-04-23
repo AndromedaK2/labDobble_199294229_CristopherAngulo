@@ -40,9 +40,9 @@
 )))))
 
 ;Constructor
-;Dominio: elementos X numero de elementos X maximo de cartas 
-;Recorrido: mazo de cartas
-;Descripción: mazo de cartas válido
+;Dominio: elementos X numero de elementos X maximo número de cartas 
+;Recorrido: Mazo de Cartas
+;Descripción: Mazo de Cartas Válido
 (define createValidCardsSet 
     (lambda (elements numberElements maxCards)
         (createNextNSquareCards elements
@@ -54,17 +54,22 @@
     )
 )
 
+;Constructor
+;Dominio: Mazo de Cartas X Mazo de Cartas Vacío X Máximo Número de Cartas X Contador
+;Recorrido: Mazo de Cartas Incompleto
+;Descripción: Crea un Mazo de cartas incompleto hasta el tope del máximo de cartas ingresado
 (define createIncompleteCardsSet (lambda (cardsSet incompleteCardsSet maxNumberCards count)
     (if (= maxNumberCards count)
      incompleteCardsSet
      (createIncompleteCardsSet (getLastCards cardsSet)
-     (addCardsToDeck incompleteCardsSet (car cardsSet)) maxNumberCards (+ count 1)))                                                                      
+     (addCardsToDeck incompleteCardsSet (getFirstCard cardsSet)) maxNumberCards (+ count 1)))                                                                      
 ))
 
 
-;Dominio:
-;Recorrido:
-;Descripción:
+
+;Dominio: Elementos X Número de Elementos X Máximo Número de cartas
+;Recorrido: True | False
+;Descripción: 
 (define isAValidCardsSetToCreate (lambda (elements numberElements maxCards)
       (if (and (= (getMaxNumberOfCards numberElements) maxCards) (= (length elements) maxCards))
           #true
@@ -72,9 +77,10 @@
                               
 
 ;Pertenencia
-;Dominio: mazo de cartas
-;Recorrido: true | false
-;Descripción
+;Dominio: Mazo de cartas
+;Recorrido: True | False
+;Descripción: Revisa si el mazo de carta es una baraja válida para jugar 
+;revisando que cada carta tiene elementos diferentes y todas las cartas tienen un elemento en común
 (define dobble? (lambda (cardsSet)
     (if (and (allCardsAreOneElementInCommon cardsSet) (allCardsAreDifferentElements cardsSet ))
         #true
@@ -82,18 +88,19 @@
     )
 ))
 
-;Dominio:
-;Recorrido:
-;Descripción:
+;Pertenencia
+;Dominio: Mazo de cartas
+;Recorrido: True | False
+;Descripción: Revisa si todas las cartas del mazo tienen un elemento o símbolo en común
 (define allCardsAreOneElementInCommon (lambda (cardsSet)
-   (if (compareFirstCardWithTailCards (car cardsSet) (cdr cardsSet))
+   (if (compareFirstCardWithTailCards (getFirstCard cardsSet) (getLastCards cardsSet))
        #true
        #false)))
 
 
 ;Dominio: Primera Carta X Cartas restantes del mazo
-;Recorrido: true | false
-
+;Recorrido: True | False
+;Descripción
 (define compareFirstCardWithTailCards (lambda (firstCard tailCards)
    (if (null? tailCards)
        #true
@@ -104,7 +111,8 @@
 
 
 ;Dominio: Primera Carta X Cartas restantes del mazo
-;Recorrido: true | false
+;Recorrido: True | False
+;Descripción
 (define compareFirstCardWithTailCardsInside(lambda (headCard tailCards)
    (if (null? tailCards)
        #true
