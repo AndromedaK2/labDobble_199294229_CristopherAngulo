@@ -13,13 +13,15 @@
 ;Descripción: Función que crea el juego
 (define game (lambda (numPlayers cardsSet mode randomFn)
  (if (and (validateNumberOfPlayerToPlay numPlayers) (dobble? cardsSet))     
-     (list numPlayers initialPlayers cardsSet mode initialAreaGame)
+     (list numPlayers initialPlayers cardsSet mode initialAreaGame initialTurns)
       null)))
 
 
-
+;Constructoras
 (define initialPlayers null)
 (define initialAreaGame "área de juego")
+(define initialTurns "turnos")
+(define status "")
 
 
 ;Selector
@@ -69,10 +71,16 @@
 
 ;Selector
 ;Dominio: Juego 
+;Recorrido:  Turnos
+;Descripción: Retorna los turnos
+(define getTurns (lambda (game) (cadr (cddddr  game))))
+
+;Selector
+;Dominio: Juego 
 ;Recorrido:  Jugador que le toca jugar
 ;Descripción: Retorna el usuario que le toca jugar
 (define whoseTurnIsIt? (lambda (game) (getFirstPlayer(getPlayers game))))
-; recordar -> mover el jugador al último                    
+               
 
 
 ;Modificador
@@ -81,17 +89,31 @@
 ;Descripción: registra un usuario nuevo al juego
 (define register (lambda (player game)
    (if (and (player? player) (not(playerIsRegistered (getPlayers game) player)) (validateNumberOfPlayerToAdd (getPlayers game) (getNumberPlayers game) ))
-         (list (getNumberPlayers game)(append (getPlayers game)(list player))(getCardsSet game)(getPlayMode game)(getAreaGame game))
+         (list (getNumberPlayers game)(append (getPlayers game)(list player))(getCardsSet game)(getPlayMode game)(getAreaGame game) (getTurns game))
           game)))                                                              
 
 
 ;Modificador
 (define play (lambda (game action)
  (if (null? action)
-   (list(getNumberPlayers game)(getPlayers game)(getCardsSet game)(getPlayMode game)((getPlayMode game)(getCardsSet game)))  
-     #false
+   (list(getNumberPlayers game)(getPlayers game)(getCardsSet game)(getPlayMode game)((getPlayMode game)(getCardsSet game)) (getTurns game) )  
+   (action game)
+     
 )))
-             
+
+;Modificador;
+(define pass (lambda (game)
+      (list(getNumberPlayers game)
+           (getPlayers game)
+           (sendCardsToFinal(getCardsSet game) (getAreaGame game))
+           (getPlayMode game)
+           initialAreaGame
+           (getTurns game))))  
+
+(define sendCardsToFinal (lambda (cardsSet areaGame)
+        (append cardsSet areaGame)))
+                          
+
 ;Otros
 ;Dominio: Jugadores X Jugador
 ;Recorrido:  True | False
@@ -126,18 +148,18 @@
 (define randomFn (lambda (xn)(modulo (+ (* a xn) c) m)))
 
 (define numPlayers 2)
-(define elements (list  1 2 3 4 5 6 7 8 9 10 11 12 13 ))
+(define elements (list  1 "b" 3 4 5 6 7 8 9 10 11 12 13 ))
 (define dobbleCards (cardsSet elements 4 13 randomFn))
 (define game1  (game numPlayers dobbleCards stackMode 2))
 ;ejemplo de ejecución de juego
 ; game1 
 
-(define player1 (player "cristopher"))
-(define player2 (player "cristian"))
-(define player3 (player "cristobal"))
+;(define player1 (player "cristopher"))
+;(define player2 (player "cristian"))
+;(define player3 (player "cristobal"))
 
-(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
-(play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null)
-
+;(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
+(define play1 (play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null))
+(play play1 pass)
 
 

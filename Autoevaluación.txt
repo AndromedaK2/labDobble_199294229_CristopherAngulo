@@ -1,0 +1,121 @@
+Requerimiento no Funcional
+Autoevaluación (0 al 1 )
+Descripción
+
+Autoevaluación
+1
+Se logró realizar
+
+Lenguaje
+1
+Se logró realizar
+
+Versión
+Se logró realizar
+1
+
+Standard
+Se logró realizar
+1
+
+No Variables
+Se logró realizar
+1
+
+Documentación
+Se logró realizar
+1
+
+Dom->Rec
+Se logró realizar
+1
+
+Ejemplos
+Se logró realizar
+1
+
+
+Requerimiento Funcional
+Autoevaluación (0 al 1 )
+Descripción
+
+TDA
+0,75
+Se logró implementar gran parte de los TDAS
+
+cardsSet
+1
+Se logró implementar la generación del mazo de cartas en todos los casos posibles, incluyendo validaciones  y funciones recursivas.
+
+dobble?
+1
+Se creo al 100% esta función utilizando recursiones anidadas
+
+numCards
+1
+Se implementó sin mayor dificultad
+
+nthCard
+1
+Se implementó sin mayor dificultad
+
+findTotalCards
+1
+Se implementó sin mayor dificultad
+
+requiredElements
+1
+Se implementó sin mayor dificultad
+
+missingCards
+1
+Se implementó con bastante dificultad
+
+cardsSet->string
+1
+Se implementó sin mayor dificultad
+
+game
+1
+Se implementó sin mayor dificultad
+
+stackMode
+0,75
+Se implementó sin mayor dificultad
+
+register
+1
+Se implementó sin mayor dificultad, logrando registrar jugadores válidos
+
+whoseTurnIsIt?
+0,75
+Se logró implementar pero no se tiene claro su funcionalidad final, puesto que faltó desarrollo 
+
+play
+0,25
+Faltó mucho desarrollo de este requerimiento por falta de tiempo, pero se tenía claro que se debía hacer
+
+status
+0
+No se logró implementar por falta de tiempo
+
+score
+0
+No se logró implementar por falta de tiempo
+
+game->string
+0
+No se logró implementar por falta de tiempo
+
+addCard
+0
+No se logró implementar por falta de tiempo
+
+emptyHandsStackMode
+0
+No se logró implementar por falta de tiempo
+
+myMode
+0
+No se logró implementar por falta de tiempo
+
