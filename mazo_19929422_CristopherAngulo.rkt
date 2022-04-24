@@ -331,7 +331,7 @@
 )))         
 
 
-;Selector
+;Helper de Selector
 ;Dominio: Mazo de Cartas Completo X Mazo de Cartas Incompleto
 ;Recorrido: Mazo de cartas con las cartas faltantes | Mazo de cartas Vacío
 ;Descripción Retorna un mazo de cartas con las cartas faltantes
