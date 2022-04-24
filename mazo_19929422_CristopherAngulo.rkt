@@ -38,7 +38,7 @@
       emptyCardsSet        
 )))))
 
-;Constructor
+;Helper del Constructor
 ;Dominio: elementos X numero de elementos X maximo número de cartas 
 ;Recorrido: Mazo de Cartas
 ;Descripción: Mazo de Cartas Válido
@@ -53,7 +53,7 @@
     )
 )
 
-;Constructor
+;Helper Constructor
 ;Dominio: Mazo de Cartas X Mazo de Cartas Vacío X Máximo Número de Cartas X Contador
 ;Recorrido: Mazo de Cartas Incompleto
 ;Descripción: Crea un Mazo de cartas incompleto hasta el tope del máximo de cartas ingresado
@@ -64,7 +64,7 @@
      (addCardsToDeck incompleteCardsSet (getFirstCard cardsSet)) maxNumberCards (+ count 1)))                                                                      
 ))
 
-;Constructor
+;Helper del Constructor
 ;Dominio: elementos X Cantidad de elementos por carta
 ;Recorrido: Carta
 ;Tipo de Recursión: Recursión Natural
@@ -73,7 +73,7 @@
         (createCard (getFirstElement elements) (createFirstCard (getTailElements elements) (- n 1))))))
 
 
-;Constructor
+;Helper de Constructor
 ;Dominio: Mazo de Cartas X Carta X Cantidad de Elementos por Carta X Cantidad total de Cartas X Auxiliar Entero X Auxiliar Entero
 ;Recorrido: Carta
 ;Tipo de Recursión: Recursión de Cola
@@ -83,7 +83,7 @@
         (auxiliarNextNCards elements (append card (list (getElementByPosition elements (+(* n j)(+ k 1)))))                                                     
                                     n maxNumberCards j (+ k 1) ))))
 
-;Constructor
+;Helper de Constructor
 ;Dominio: Lista de Simbolos X Mazo de Cartas X Cantidad de Simbolos por carta x cantidad total de cartas a generar 
 ;Recorrido: Mazo de las N  Cartas
 ;Tipo de recursión: Recursión de Cola
@@ -94,7 +94,7 @@
         (addCardsToDeck cardsSet (auxiliarNextNCards elements (list(getFirstElement elements)) n maxNumberCards (+ j 1) 0 ))
             n maxNumberCards (+ j 1)))))
 
-;Constructor
+;Helper de Constructor
 ;Dominio:
 ;Recorrido:
 ;Descripción:
@@ -105,7 +105,7 @@
         (append card (list (getElementByPosition elements (calculateValueToDrawACard n j i k ))))
         n maxNumberCards j i (+ k 1)))))
 
-;Constructor
+;Helper de Constructor
 ;Dominio:
 ;Recorrido:
 ;Descripción:
@@ -140,16 +140,16 @@
     )
 ))
 
-;Pertenencia
+;Validador
 ;Dominio: Elementos X Número de Elementos X Máximo Número de cartas
 ;Recorrido: True | False
-;Descripción: 
+;Descripción: Valida si el mazo de cartas es válido para crearse 
 (define isAValidCardsSetToCreate (lambda (elements numberElements maxCards)
       (if (and (= (getMaxNumberOfCards numberElements) maxCards) (= (length elements) maxCards))
           #true
           #false)))
                               
-;Pertenencia
+;Helper de Pertenencia
 ;Dominio: Mazo de cartas
 ;Recorrido: True | False
 ;Descripción: Revisa si todas las cartas del mazo tienen un elemento o símbolo en común
@@ -158,7 +158,7 @@
        #true
        #false)))
 
-;Otro
+;Helper de Pertenencia
 ;Dominio: Primera Carta X Cartas restantes del mazo
 ;Recorrido: True | False
 ;Descripción: Compara la primera carta con las cartas restantes del mazo 
@@ -169,7 +169,7 @@
        (compareFirstCardWithTailCards (car tailCards) (cdr tailCards))
        #false))))
 
-;Otro
+;Helper de Pertenencia
 ;Dominio: Primera Carta X Cartas restantes del mazo
 ;Recorrido: True | False
 ;Descripción: Compara la primera carta que entra con el resto de cartas 
@@ -180,7 +180,7 @@
        (compareFirstCardWithTailCardsInside headCard (cdr tailCards))
        #false))))
 
-;Otro
+;Helper de Pertenencia
 ;Dominio: 2 Cartas Unidas en una sola lista
 ;Recorrido: True | False
 ;Descripción: Retorna Verdadero si únicamente tiene un elemento en común el las 2 cartas unidas
@@ -194,7 +194,7 @@
        (compareTwoCards (getTailElements joinCard) (+ count(compareElements(getFirstElement joinCard)(getTailElements joinCard)0)))
        #false))))
   
-;Otro                     
+;Helper de pertenencia                     
 ;Dominio: Primer Elemento de la carta unida X Resto de elementos de la carta unida
 ;Recorrido: Número de veces que repite un elemento entre las 2 cartas {0}+ 
 ;Descripción:  Retorna la cantidad de veces que se repite un elemento
@@ -207,11 +207,11 @@
         (compareElements firstElement (getTailElements tailElement) (+ count 1))
         (compareElements firstElement (getTailElements tailElement) count )))))
 
-        
-       
+
+;Helper de Pertenencia    
 ;Dominio: Mazo de Cartas
 ;Recorrido: True | False
-;Descripción
+;Descripción Valida si todas las cartas tiene elementos diferentes
 (define allCardsAreDifferentElements (lambda (cardsSet)
    (if (null? cardsSet)
        #true
@@ -224,10 +224,10 @@
 )
 
 
-;carta (1,8,9,19)
-;Dominio:
-;Recorrido:
-;Descripción:
+; Helper de Pertenencia 
+;Dominio: Carta
+;Recorrido: True | False|
+;Descripción: Valida si la carta tiene elementos diferentes
 (define cardIsDifferentElements (lambda (card)
    (if (null? card)
        #true
@@ -236,9 +236,10 @@
        #false))))
                                  
 
-;Dominio:
-;Recorrido:
-;Descripción:
+;Helper de Pertenencia
+;Dominio: Carta X Elemento
+;Recorrido: True | False
+;Descripción: Compara los elementos de una carta dada
 ; carta -> (1,8,9,10)
 ; cola card -> (8,9,10)
 ; element -> (1)
@@ -314,14 +315,14 @@
 ;Selector
 ;Dominio: Orden del Mazo
 ;Recorrio: Número máximo de cartas
-;Descripción:
+;Descripción: Obtiene el número máximo de cartas 
 (define getMaxNumberOfCards (lambda (n) (+ (* (getOrderOfCardsSet n)(getOrderOfCardsSet n)) (getOrderOfCardsSet n) 1)))
        
 
 
 ;Selector
-;Dominio
-;Recorrido
+;Dominio: Mazo de cartas X Elementos X RandomFn
+;Recorrido: Null | Mazo de Cartas con las cartas faltantes
 ;Descripción
 (define missingCards (lambda (cardsSetToValidate elements randomFn)
     (if (= (numCards cardsSetToValidate) (findTotalCards (nthCard cardsSetToValidate 1))) 
@@ -331,9 +332,9 @@
 
 
 ;Selector
-;Dominio
-;Recorrido
-;Descripción
+;Dominio: Mazo de Cartas Completo X Mazo de Cartas Incompleto
+;Recorrido: Mazo de cartas con las cartas faltantes | Mazo de cartas Vacío
+;Descripción Retorna un mazo de cartas con las cartas faltantes
 (define (outerCardsSet fullCardsSet IncompleteCardsSet)
   (if (null? fullCardsSet)
       emptyCardsSet
@@ -364,7 +365,7 @@
    (cardsSet->stringAuxiliar cardsSet  1 "")))
            
                                                              
-;Otros
+;Otro
 ;Dominio: orden del mazo
 ;Recorrido: true | false
 ;Descripción: retorna true o false para un orden válido
@@ -377,7 +378,7 @@
 ;Otro 
 ;Dominio: orden del mazo (number)
 ;Recorrido: true | false
-;Descripción: Función que ejcuta una Recursión de Cola que retorna un true cuando el valor es primo
+;Descripción: Función que ejecuta una Recursión de Cola que retorna un true cuando el valor es primo
 (define isPrimeWrapper (lambda (order)
    (define isPrime ( lambda (order count)
         (if (= order count)
