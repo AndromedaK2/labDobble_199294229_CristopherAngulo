@@ -159,7 +159,7 @@
 ;(define player3 (player "cristobal"))
 
 ;(whoseTurnIsIt? (register "pedro" (register "Felipe" (register "Cristopher" game1))))
-(define play1 (play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null))
-(play play1 pass)
+;(define play1 (play (register "pedro" (register "Felipe" (register "Cristopher" game1))) null))
+;(play play1 pass)
 
 
